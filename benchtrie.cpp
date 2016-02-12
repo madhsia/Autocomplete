@@ -7,13 +7,19 @@
 #include <fstream>
 #include <sstream>
 
+using namespace std;
+
 void testStudent(std::string dict_filename){
 
     std::ifstream in;
     in.open(dict_filename, std::ios::binary);
 
+    DictionaryBST* dictionary_bst = new DictionaryBST();
+    Utils::load_dict(*dictionary_bst,in);
 
-    // Testing student's trie
+    string word = "baby";
+    cout << find(word) << endl;
+    /*// Testing student's trie
     std::cout << "\nTiming your solution" << std::endl;
     std::cout << "\nLoading dictionary..." << std::endl;
     DictionaryTrie* dictionary_trie = new DictionaryTrie();
@@ -153,7 +159,7 @@ void testStudent(std::string dict_filename){
 
 
     std::cout << "\nFinished timing your solution." << std::endl;
-    delete dictionary_trie;
+    delete dictionary_trie;*/
 
 
 }

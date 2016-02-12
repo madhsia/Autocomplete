@@ -1,8 +1,11 @@
 #include "util.hpp"
 #include "DictionaryTrie.hpp"
+using namespace std;
 
 /* Create a new Dictionary that uses a Trie back end */
-DictionaryTrie::DictionaryTrie(){}
+DictionaryTrie::DictionaryTrie(){
+	root = new Node();
+}
 
 /* Insert a word with its frequency into the dictionary.
  * Return true if the word was inserted, and false if it
@@ -10,7 +13,10 @@ DictionaryTrie::DictionaryTrie(){}
  * invalid (empty string) */
 bool DictionaryTrie::insert(std::string word, unsigned int freq)
 {
-  return false;
+	if (children != 0) {
+		children.insert(word);
+	}
+	return false;
 }
 
 /* Return true if word is in the dictionary, and false otherwise */

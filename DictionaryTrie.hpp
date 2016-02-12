@@ -8,6 +8,9 @@
 
 #include <vector>
 #include <string>
+#include <unordered_map>
+
+using namespace std;
 
 /**
  *  The class for a dictionary ADT, implemented as a trie
@@ -15,6 +18,15 @@
  *  or a ternary search trie, but you must use one or the other.
  *
  */
+
+class TrieNode {
+    bool isWord;
+    unordered_map<char, TrieNode*> children;
+    unordered_map<char, TrieNode*> root;
+    string text;
+    unsigned int freq;
+};
+
 class DictionaryTrie
 {
 public:
@@ -48,7 +60,8 @@ public:
   ~DictionaryTrie();
 
 private:
-  // Add your own data members and methods here
+  // Add your own data members and methods here  
+
 };
 
 #endif // DICTIONARY_TRIE_HPP
