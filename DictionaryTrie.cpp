@@ -4,7 +4,7 @@ using namespace std;
 
 /* Create a new Dictionary that uses a Trie back end */
 DictionaryTrie::DictionaryTrie(){
-	root = new Node();
+	TrieNode* root = new TrieNode();
 }
 
 /* Insert a word with its frequency into the dictionary.
@@ -13,9 +13,6 @@ DictionaryTrie::DictionaryTrie(){
  * invalid (empty string) */
 bool DictionaryTrie::insert(std::string word, unsigned int freq)
 {
-	if (children != 0) {
-		children.insert(word);
-	}
 	return false;
 }
 

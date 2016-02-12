@@ -18,8 +18,7 @@ void testStudent(std::string dict_filename){
     Utils::load_dict(*dictionary_bst,in);
 
     string word = "baby";
-    cout << find(word) << endl;
-    /*// Testing student's trie
+    // Testing student's trie
     std::cout << "\nTiming your solution" << std::endl;
     std::cout << "\nLoading dictionary..." << std::endl;
     DictionaryTrie* dictionary_trie = new DictionaryTrie();
@@ -159,7 +158,7 @@ void testStudent(std::string dict_filename){
 
 
     std::cout << "\nFinished timing your solution." << std::endl;
-    delete dictionary_trie;*/
+    delete dictionary_trie;
 
 
 }
