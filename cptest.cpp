@@ -230,6 +230,10 @@ int testsPassed = 0;
     cout << "should be 0: " << dictTrie->insert(four,1) << endl; // 1
     cout << "should be 1: " << dictTrie->find(four) << endl;
 
+    cout << "testing for spaces" << endl;
+    cout << "should be 1: " << dictTrie->insert(two,1) << endl; // 1
+    cout << "should be 0: " << dictTrie->insert(two,2) << endl;
+
     string m = "a job in industry"; //0 find
     cout << "should be 0: " << dictTrie->find(m) << endl; // 1
 

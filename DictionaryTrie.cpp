@@ -24,10 +24,10 @@ bool DictionaryTrie::insert(std::string word, unsigned int freq)
     }
     for (unsigned int i=0; i < word.length(); i++) {
         int letter = (int)word[i]-(int)'a';
+        if (word[i] == ' ') {
+            letter = 26;
+        }
         if (curr->children[letter] == NULL) {
-            if (letter == ' ') {
-                letter = 26;
-            }
             curr->children[letter] = new TrieNode(false,word[i],0);
             curr->text = word[i];
             //cout << curr->children[letter] << endl;
