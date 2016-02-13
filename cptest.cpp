@@ -41,7 +41,16 @@ int main(int argc, char *argv[]) {
     cout << endl;
    	cout << "testing trie" << endl;
    	DictionaryTrie* dictTrie= new DictionaryTrie();
-    cout << dictTrie->insert(a,0) << endl; //1
-    cout << dictTrie->insert(b,0) << endl; //1
+    cout << dictTrie->insert(s,0) << endl; //1
+    cout << dictTrie->find(s) << endl; //1
+    cout << dictTrie->insert(h,0) << endl; //0
+    cout << dictTrie->insert(i,0) << endl; //1
+    cout << dictTrie->find(h) << endl; //1
+    cout << dictTrie->find(i) << endl; //1
+    cout << dictTrie->find(x) << endl; //0
+    //cout << dictTrie->insert(a,0) << endl; //1
+    //cout << dictTrie->insert(b,0) << endl; //1
+    //cout << dictTrie->find(a) << endl; //1
+
 
 }

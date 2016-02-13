@@ -4,31 +4,41 @@ using namespace std;
 
 /* Create a new Dictionary that uses a Trie back end */
 DictionaryTrie::DictionaryTrie(){
-	root = new TrieNode();
+	root = new TrieNode(false,0,0);
 }
 
 /* Insert a word with its frequency into the dictionary.
  * Return true if the word was inserted, and false if it
  * was not (i.e. it was already in the dictionary or it was
  * invalid (empty string) */
- 
+
 bool DictionaryTrie::insert(std::string word, unsigned int freq)
 {
-    cout << "insert method started" << endl;
-    TrieNode* curr = new TrieNode();
-    curr = root;
-    cout << "curr children at b is: " << curr->children[1] << endl;
+    TrieNode* curr = root;
+
+    if (find(word)) {
+        return false;
+    }
+
+    /*cout << "curr children at b is: " << curr->children[1] << endl;
+    cout << "now children at b is: " << curr->children[1] << endl;
+    cout << "text: " << curr->text << endl;
+    cout << "now children at c is: " << curr->children[2] << endl;*/
+
     for (unsigned int i=0; i < word.length(); i++) {
         int letter = (int)word[i]-(int)'a';
-        cout << "trying to insert letter b: " << letter << endl;
         if (curr->children[letter] == NULL) {
-            curr->children[letter] = new TrieNode();
+            if (letter == ' ') {
+                letter = 26;
+            }
+            curr->children[letter] = new TrieNode(false,word[i],0);
+            curr->text = word[i];
+            //cout << curr->children[letter] << endl;
         }
-        cout << "now children at b is: " << curr->children[1] << endl;
-        cout << "now children at c is: " << curr->children[2] << endl;
         curr = curr->children[letter];
     }
     curr->isWord = true;
+
     //if word does not already exist
     //insert word and freq
     /*Node* curr = this;
@@ -62,15 +72,22 @@ bool DictionaryTrie::insert(std::string word, unsigned int freq)
 /* Return true if word is in the dictionary, and false otherwise */
 bool DictionaryTrie::find(std::string word) const
 {
-    TrieNode* curr = new TrieNode();
+    TrieNode* curr = root;
     for (unsigned int i=0; i<word.length(); i++) {
         int letter = (int)word[i]-(int)'a';
+        if (letter == ' ') {
+            letter = 26;
+        }
         if ((curr->children[letter]) == NULL) {
+            //cout << "the root is: " << curr->children[letter] << endl;
             return false;
+        }
+        if ((curr->children[letter]->isWord) && (i=word.length()-1)) {
+            return true;
         }
         curr = curr->children[letter];
     }
-    return curr->isWord;
+    return true;
 }
 
 /* Return up to num_completions of the most frequent completions
