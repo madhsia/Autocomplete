@@ -35,38 +35,9 @@ bool DictionaryTrie::insert(std::string word, unsigned int freq)
             curr->text = word[i];
             //cout << curr->children[letter] << endl;
         }
-        if (i == word.length()) curr->children[letter]->isWord = true;
-
         curr = curr->children[letter];
     }
-
-    //if word does not already exist
-    //insert word and freq
-    /*Node* curr = this;
-    int length = word.length();
-    string::const_iterator it = word.begin();
-
-    for (int i=0; i < length, i++) {
-        if (curr == NULL) {
-            Node* temp = new Node(s[i]);
-            curr = temp;
-        }
-        if (temp->data > s[i]){
-            //add left
-            curr = curr->left;
-
-        }
-        else if (temp->data < s[i]){
-            //add right
-            curr = curr->right;
-
-        }
-        else{
-            //if wordended stop
-            //else add mid 
-        }
-
-    }*/
+    curr->isWord = true;
 	return true;
 }
 
@@ -74,9 +45,11 @@ bool DictionaryTrie::insert(std::string word, unsigned int freq)
 bool DictionaryTrie::find(std::string word) const
 {
     TrieNode* curr = root;
+    if (word.empty()) return false;
+
     for (unsigned int i=0; i<word.length(); i++) {
         int letter = (int)word[i]-(int)'a';
-        if (letter == ' ') {
+        if (word[i] == ' ') {
             letter = 26;
         }
         if ((curr->children[letter]) == NULL) {
@@ -87,9 +60,8 @@ bool DictionaryTrie::find(std::string word) const
             return true;
         }
         curr = curr->children[letter];
-        if (i==word.length()) return curr->children[letter]->isWord;
     }
-    return true;
+    return false;
 }
 
 /* Return up to num_completions of the most frequent completions

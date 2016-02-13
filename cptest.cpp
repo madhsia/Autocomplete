@@ -22,6 +22,7 @@ int main(int argc, char *argv[]) {
     string dump = "basket";
     string ling = "basketball";
     string guggle = "guggle";
+    string bask = "bask";
     cout << dict->insert(s) << endl; //1
    	cout << dict->find(s) << endl; //1
    	cout << dict->insert(h) << endl; //0
@@ -56,6 +57,7 @@ int main(int argc, char *argv[]) {
     cout << dictTrie->insert(dump,0) << endl;
     cout << dictTrie->find(ling) << endl;
     cout << dictTrie->find(dump) << endl;
+    cout << dictTrie->find(bask) << endl; 
     cout << dictTrie->find(guggle) << endl;
     //cout << dictTrie->insert(a,0) << endl; //1
     //cout << dictTrie->insert(b,0) << endl; //1
