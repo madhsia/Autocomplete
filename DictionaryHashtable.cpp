@@ -8,17 +8,19 @@ DictionaryHashtable::DictionaryHashtable(){}
 /* Insert a word into the dictionary. */
 bool DictionaryHashtable::insert(std::string word)
 {
-	if (s.find(word) != s.end()) {
+	auto exists = s.insert(word);
+	if (exists.second == 1) {
 		s.insert(word);
 		return true;
 	}
 	return false;
+
 }
 
 /* Return true if word is in the dictionary, and false otherwise */
 bool DictionaryHashtable::find(std::string word) const
 {
-	if (s.find(word)== s.end()) {
+	if (s.find(word) == s.end()) {
 		return false;
 	}
 	return true;

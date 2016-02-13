@@ -20,11 +20,26 @@ using namespace std;
  */
 
 class TrieNode {
+  public:
     bool isWord;
-    unordered_map<char, TrieNode*> children;
-    unordered_map<char, TrieNode*> root;
+    TrieNode* children[27];
+    vector<TrieNode*>child = vector<TrieNode*>(27, (TrieNode*)0);
     string text;
     unsigned int freq;
+
+    //vector<TrieNode*>child = vector<TrieNode*>(27, (TrieNode*)0);
+    //unordered_map <char, TrieNode *> c;
+    TrieNode() {
+      this->isWord = isWord;
+      this->freq = freq;
+      this->text = text;
+    }
+    
+    TrieNode(bool isWord, string text, int freq){
+      this -> isWord = isWord;
+      this -> text = text;
+      this -> freq = freq;
+    }
 };
 
 class DictionaryTrie
@@ -60,8 +75,25 @@ public:
   ~DictionaryTrie();
 
 private:
-  // Add your own data members and methods here  
+  TrieNode* root;
+  /*class Node {
+  public:
+    char data;
+    bool is_Word;
+    unsigned int frequency;
+    Node* children[27];
+    Node* root;
+    Node* left;
+    Node* equal;
+    Node* right;
 
+    Node(char c) {
+      Node* temp = new Node(0);
+      temp->data = c;
+      temp->is_Word = false;
+      temp->left = temp->equal = temp->right;
+    }
+  };*/
 };
 
 #endif // DICTIONARY_TRIE_HPP

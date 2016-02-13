@@ -14,10 +14,6 @@ void testStudent(std::string dict_filename){
     std::ifstream in;
     in.open(dict_filename, std::ios::binary);
 
-    DictionaryBST* dictionary_bst = new DictionaryBST();
-    Utils::load_dict(*dictionary_bst,in);
-
-    string word = "baby";
     // Testing student's trie
     std::cout << "\nTiming your solution" << std::endl;
     std::cout << "\nLoading dictionary..." << std::endl;
