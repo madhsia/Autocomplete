@@ -19,12 +19,9 @@ bool DictionaryTrie::insert(std::string word, unsigned int freq)
     if (find(word)) {
         return false;
     }
-
-    /*cout << "curr children at b is: " << curr->children[1] << endl;
-    cout << "now children at b is: " << curr->children[1] << endl;
-    cout << "text: " << curr->text << endl;
-    cout << "now children at c is: " << curr->children[2] << endl;*/
-
+    if (word.empty()) {
+        return false;
+    }
     for (unsigned int i=0; i < word.length(); i++) {
         int letter = (int)word[i]-(int)'a';
         if (curr->children[letter] == NULL) {
@@ -56,7 +53,7 @@ bool DictionaryTrie::find(std::string word) const
             //cout << "the root is: " << curr->children[letter] << endl;
             return false;
         }
-        if ((curr->children[letter]->isWord) && (i=word.length()-1)) {
+        if ((curr->children[letter]->isWord) && (i==word.length()-1)) {
             return true;
         }
         curr = curr->children[letter];

@@ -8,6 +8,7 @@ DictionaryBST::DictionaryBST(){}
 /* Insert a word into the dictionary. */
 bool DictionaryBST::insert(std::string word)
 {
+	if (word.empty()) return false;
 	auto exists = s.insert(word);
 	if (exists.second == 1) {
 		s.insert(word);

@@ -7,12 +7,15 @@
 #include <fstream>
 #include <sstream>
 
+#define ALL 15
+
 using namespace std;
 
 void testStudent(std::string dict_filename){
 
     std::ifstream in;
     in.open(dict_filename, std::ios::binary);
+
 
     // Testing student's trie
     std::cout << "\nTiming your solution" << std::endl;
@@ -147,29 +150,184 @@ void testStudent(std::string dict_filename){
             std::cout << "Enter prefix: ";
 
         }
-
     }
-
-
-
 
     std::cout << "\nFinished timing your solution." << std::endl;
     delete dictionary_trie;
-
-
 }
 
 int main(int argc, char *argv[]) {
 
-    if(argc < 2){
+    /*if(argc < 2){
         std::cout << "Incorrect number of arguments." << std::endl;
         std::cout << "\t First argument: name of dictionary file." << std::endl;
         std::cout << std::endl;
         exit(-1);
     }
-
     testStudent(argv[1]);
+    */
 
     // TODO - Your benchmarking for Part 3.
 
+    //
+    //  CHECKPOINT TESTS
+    //  -----------------------------------------------------------------------
+    int testsPassed = 0;
+    
+    // CHECKPOINT TEST 1: Hashtable
+    cout << "////////// HASHTABLE //////////" << endl;
+    DictionaryHashtable table;
+    // Valid string insertion
+    cout << "Inserting a valid string..."; 
+    if (table.insert("lol"))
+    {
+        testsPassed++;
+        cout << "PASSED" << endl;
+    } else {
+        cout << "FAILED :(" << endl;
+    }
+    // Duplicate string insertion
+    cout << "Inserting a duplicate string..."; 
+    if (table.insert("lol") == false)
+    {
+        testsPassed++;
+        cout << "PASSED" << endl;
+    } else {
+        cout << "FAILED :(" << endl;
+    }
+    // Empty string insertion
+    cout << "Inserting an empty string..."; 
+    if (table.insert("") == false)
+    {
+        testsPassed++;
+        cout << "PASSED" << endl;
+    } else {
+        cout << "FAILED :(" << endl;
+    }
+    // Valid string search
+    cout << "Searching for a word in the dictionary...";
+    if (table.find("lol"))
+    {
+        testsPassed++;
+        cout << "PASSED" << endl;
+    } else {
+        cout << "FAILED :(" << endl;
+    }
+    // Invalid string search
+    cout << "Searching for a word not in the dictionary...";
+    if (table.find("") == false)
+    {
+        testsPassed++;
+        cout << "PASSED" << endl;
+    } else {
+        cout << "FAILED :(" << endl;
+    }
+    
+    // CHECKPOINT TEST 2: BST
+    cout << "////////// BST //////////" << endl;
+    DictionaryBST bst;
+    // Valid string insertion
+    cout << "Inserting a valid string..."; 
+    if (bst.insert("omg"))
+    {
+        testsPassed++;
+        cout << "PASSED" << endl;
+    } else {
+        cout << "FAILED :(" << endl;
+    }
+    // Duplicate string insertion
+    cout << "Inserting a duplicate string..."; 
+    if (bst.insert("omg") == false)
+    {
+        testsPassed++;
+        cout << "PASSED" << endl;
+    } else {
+        cout << "FAILED :(" << endl;
+    }
+    // Empty string insertion
+    cout << "Inserting an empty string..."; 
+    if (bst.insert("") == false)
+    {
+        testsPassed++;
+        cout << "PASSED" << endl;
+    } else {
+        cout << "FAILED :(" << endl;
+    }
+    // Valid string search
+    cout << "Searching for a word in the dictionary...";
+    if (bst.find("omg"))
+    {
+        testsPassed++;
+        cout << "PASSED" << endl;
+    } else {
+        cout << "FAILED :(" << endl;
+    }
+    // Invalid string search
+    cout << "Searching for a word not in the dictionary...";
+    if (table.find("") == false)
+    {
+        testsPassed++;
+        cout << "PASSED" << endl;
+    } else {
+        cout << "FAILED :(" << endl;
+    }
+
+    // CHECKPOINT TEST 3: Trie
+    DictionaryTrie trie;
+    cout << "////////// TRIE //////////" << endl;
+    // Valid string insertion
+    cout << "Inserting a valid string..."; 
+    if (trie.insert("omg", 5))
+    {
+        testsPassed++;
+        cout << "PASSED" << endl;
+    } else {
+        cout << "FAILED :(" << endl;
+    }
+    // Duplicate string insertion
+    cout << "Inserting a duplicate string..."; 
+    if (trie.insert("omg", 10) == false)
+    {
+        testsPassed++;
+        cout << "PASSED" << endl;
+    } else {
+        cout << "FAILED :(" << endl;
+    }
+    // Empty string insertion
+    cout << "Inserting an empty string..."; 
+    if (trie.insert("", 10) == false)
+    {
+        testsPassed++;
+        cout << "PASSED" << endl;
+    } else {
+        cout << "FAILED :(" << endl;
+    }
+    // Valid string search
+    cout << "Searching for a word in the dictionary...";
+    if (trie.find("omg"))
+    {
+        testsPassed++;
+        cout << "PASSED" << endl;
+    } else {
+        cout << "FAILED :(" << endl;
+    }
+    // Invalid string search
+    cout << "Searching for a word not in the dictionary...";
+    if (trie.find("") == false)
+    {
+        testsPassed++;
+        cout << "PASSED" << endl;
+    } else {
+        cout << "FAILED :(" << endl;
+    }
+
+    // GOOD TO GO?
+    if (testsPassed == ALL)
+    {
+        cout << "////////// RESULTS //////////" << endl;
+        cout << "OMG YAY!" << endl;
+        cout << "You're good to go! :)" << endl;
+    }
+
+    return 0;   
 }
