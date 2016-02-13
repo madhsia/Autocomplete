@@ -35,9 +35,10 @@ bool DictionaryTrie::insert(std::string word, unsigned int freq)
             curr->text = word[i];
             //cout << curr->children[letter] << endl;
         }
+        if (i == word.length()) curr->children[letter]->isWord = true;
+
         curr = curr->children[letter];
     }
-    curr->isWord = true;
 
     //if word does not already exist
     //insert word and freq
@@ -87,7 +88,8 @@ bool DictionaryTrie::find(std::string word) const
         }
         curr = curr->children[letter];
     }
-    return true;
+    return curr->isWord;
+
 }
 
 /* Return up to num_completions of the most frequent completions
