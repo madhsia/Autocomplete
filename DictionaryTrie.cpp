@@ -87,9 +87,9 @@ bool DictionaryTrie::find(std::string word) const
             return true;
         }
         curr = curr->children[letter];
+        if (i==word.length()) return curr->children[letter]->isWord;
     }
-    return curr->isWord;
-
+    return true;
 }
 
 /* Return up to num_completions of the most frequent completions
