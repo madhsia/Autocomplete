@@ -1,5 +1,7 @@
 #include "util.hpp"
 #include "DictionaryTrie.hpp"
+#include <queue>
+
 using namespace std;
 
 /* Create a new Dictionary that uses a Trie back end */
@@ -29,10 +31,12 @@ bool DictionaryTrie::insert(std::string word, unsigned int freq)
         }
         if (curr->children[letter] == NULL) {
             curr->children[letter] = new TrieNode(false,word[i],0);
-            curr->text = word[i];
-            //cout << curr->children[letter] << endl;
         }
-        curr = curr->children[letter];
+
+        if (i == word.length()-1) {
+            curr->freq = freq;
+        }
+        curr = curr->children[letter];        
     }
     curr->isWord = true;
 	return true;
@@ -50,7 +54,6 @@ bool DictionaryTrie::find(std::string word) const
             letter = 26;
         }
         if ((curr->children[letter]) == NULL) {
-            //cout << "the root is: " << curr->children[letter] << endl;
             return false;
         }
         if ((curr->children[letter]->isWord) && (i==word.length()-1)) {
@@ -74,8 +77,66 @@ bool DictionaryTrie::find(std::string word) const
 std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, unsigned int num_completions)
 {
   std::vector<std::string> words;
+
+  TrieNode* curr = root;
+  string theWord = "";
+  
+  if (num_completions == 0 || prefix.empty() || !root) {
+    return words;
+  }
+
+  for (unsigned int i=0; i<prefix.length(); i++) {
+    int letter = (int)prefix[i]-(int)'a';
+    if (curr->children[letter] == NULL) break;
+    if (curr->children[letter]->text == prefix[i]) {
+        curr = curr->children[letter];
+        cout << "first for loop" << endl;
+        cout << curr->text << endl;
+    }
+    else return words;
+  }
+
+  for (unsigned int i=0; i<27; i++) {
+    if (curr->children[i] != NULL) {
+        theWord += curr->children[i]->text;
+    }
+    //if curr->isWord
+    //curr = curr->children[i];
+    cout << "theWord: " << theWord << endl;
+    //curr = curr->children[i]; this causing segfault
+  }
+
+  priority_queue<TrieNode*> q;
+
+  for (q.push(root); !q.empty(); q.pop()){
+    const TrieNode* const temp = q.top();
+    cout << temp->text << " ";
+    //if (temp->children[]) {
+    //    q.push ??
+    //}
+  }
+
+  /* 
+    1. get all words that have that prefix
+        2) The next step is to search through the subtree rooted at the end of the 
+        prefix to find the num_completion most likely completions of the prefix.  
+    2. compare the frequencies
+    3. put num_completions amount of it in words
+  */
+  
   return words;
 }
 
 /* Destructor */
-DictionaryTrie::~DictionaryTrie(){}
+DictionaryTrie::~DictionaryTrie(){
+    deleteTrie(root);
+    root = NULL;
+}
+
+void DictionaryTrie::deleteTrie(TrieNode* ptr) {
+    if (ptr == NULL) return;
+    for (int i=0; i<27; i++) {
+        deleteTrie(ptr->children[i]);
+    }
+    delete ptr;
+}

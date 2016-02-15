@@ -158,14 +158,14 @@ void testStudent(std::string dict_filename){
 
 int main(int argc, char *argv[]) {
 
-    /*if(argc < 2){
+    if(argc < 2){
         std::cout << "Incorrect number of arguments." << std::endl;
         std::cout << "\t First argument: name of dictionary file." << std::endl;
         std::cout << std::endl;
         exit(-1);
     }
     testStudent(argv[1]);
-    */
+    
 
     // TODO - Your benchmarking for Part 3.
 

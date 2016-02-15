@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
 
     //std::ifstream in;
     //in.open(dict_filename, std::ios::binary);
-int testsPassed = 0;
+/*int testsPassed = 0;
     
     // CHECKPOINT TEST 1: Hashtable
     cout << "////////// HASHTABLE //////////" << endl;
@@ -167,10 +167,9 @@ int testsPassed = 0;
         cout << "OMG YAY!" << endl;
         cout << "You're good to go! :)" << endl;
     }
+    */
+    cout << "----- fukthisshit -----" << endl;
 
-    cout << "MY TEST" << endl;
-
-    DictionaryBST* dict = new DictionaryBST();
     string s = "fuck";
     string h = "fuck";
     string i = "mad";
@@ -181,70 +180,38 @@ int testsPassed = 0;
     string ling = "basketball";
     string guggle = "guggle";
     string bask = "bask";
-    cout << dict->insert(s) << endl; //1
-   	cout << dict->find(s) << endl; //1
-   	cout << dict->insert(h) << endl; //0
-   	cout << dict->insert(i) << endl; //1
-   	cout << dict->find(h) << endl; //1
-   	cout << dict->find(i) << endl; //1
-   	cout << dict->find(x) << endl; //0
-
-    cout << endl;
-   	cout << "testing hashtable" << endl;
-   	DictionaryHashtable* dictHash = new DictionaryHashtable();
-    cout << dictHash->insert(s) << endl; //1
-   	cout << dictHash->find(s) << endl; //1
-   	cout << dictHash->insert(h) << endl; //0
-   	cout << dictHash->insert(i) << endl; //1
-   	cout << dictHash->find(h) << endl; //1
-   	cout << dictHash->find(i) << endl; //1
-   	cout << dictHash->find(x) << endl; //0
-
-    cout << endl;
-   	cout << "testing trie" << endl;
-   	DictionaryTrie* dictTrie= new DictionaryTrie()
-    ;
-    cout << dictTrie->insert(s,0) << endl; //1
-    cout << dictTrie->find(s) << endl; //1
-    cout << dictTrie->insert(h,0) << endl; //0
-    cout << dictTrie->insert(i,0) << endl; //1
-    cout << dictTrie->find(h) << endl; //1
-    cout << dictTrie->find(i) << endl; //1
-    cout << dictTrie->find(x) << endl; //0
-    cout << "-------------" << endl;
-    
     string tok = "application";
     string one = "app"; //insert 1
-    cout << dictTrie->insert(tok,1) << endl;
-    cout << dictTrie->insert(one,1) << endl; //should be 1
-
     string two = "are you not entertained"; //insert 1
-    cout << dictTrie->insert(two,1) << endl;
-
     string three = "a"; //find 1, reinsert 0
     string four = "never gonna give you up"; //reinsert 0, find 1
-    cout << dictTrie->insert(four,1) << endl;
+    string m = "a job in industry"; //0 find
+    string r = "alaska"; //0 find
+
+   	cout << "----- Testing DictionaryTrie -----" << endl;
+   	DictionaryTrie* dictTrie= new DictionaryTrie();
+
+    cout << "should be 1: " << dictTrie->insert(s,20) << endl; //1
+    cout << "should be 1: " << dictTrie->find(s) << endl; //1
+    cout << "should be 0: " << dictTrie->insert(h,0) << endl; //0
+    cout << "should be 1: " << dictTrie->insert(i,0) << endl; //1
+    cout << "should be 1: " << dictTrie->find(h) << endl; //1
+    cout << "should be 1: " << dictTrie->find(i) << endl; //1
+    cout << "should be 0: " << dictTrie->find(x) << endl; //0
+    cout << "should be 1: " << dictTrie->insert(tok,1) << endl;
+    cout << "should be 1: " << dictTrie->insert(one,1) << endl; 
+    cout << "should be 1: " << dictTrie->insert(two,1) << endl;
     cout << "should be 1: " << dictTrie->insert(three,1) << endl; // 1
     cout << "should be 0: " << dictTrie->insert(three,3) << endl; // 0
     cout << "should be 1: " << dictTrie->insert(four,1) << endl; // 1
-    cout << "should be 0: " << dictTrie->insert(four,1) << endl; // 1
+    cout << "should be 0: " << dictTrie->insert(four,1) << endl; 
     cout << "should be 1: " << dictTrie->find(four) << endl;
-
-    cout << "testing for spaces" << endl;
-    cout << "should be 1: " << dictTrie->insert(two,1) << endl; // 1
+    cout << "should be 0: " << dictTrie->insert(two,1) << endl;
     cout << "should be 0: " << dictTrie->insert(two,2) << endl;
-
-    string m = "a job in industry"; //0 find
-    cout << "should be 0: " << dictTrie->find(m) << endl; // 1
-
-    string r = "alaska"; //0 find
-    cout << "should be 0: " << dictTrie->find(r) << endl; // 1
-
-    string j = "all your free time"; //0 find
-    string k = "applesauce"; //0 find
-
-    //cout << dictTrie->insert(a,0) << endl; //1
-    //cout << dictTrie->insert(b,0) << endl; //1
-    //cout << dictTrie->find(a) << endl; //1
-
+    cout << "should be 0: " << dictTrie->find(m) << endl;
+    cout << "should be 0: " << dictTrie->find(r) << endl; 
+    cout << endl;
+    cout << "----- Testing PredictCompletions -----" << endl;
+    dictTrie->predictCompletions("app",10);
+    
 }
