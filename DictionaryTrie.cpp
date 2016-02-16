@@ -64,6 +64,25 @@ bool DictionaryTrie::find(std::string word) const
     return false;
 }
 
+string DictionaryTrie::traverseTrie(std::string prefix, TrieNode*& node) {
+	string word;
+	int x =0;
+	if (node->isWord) {
+		//cout << prefix << endl;
+	}
+	for (char i=0; i<27;++i) {
+		char next = i + 'a';
+		TrieNode* current = node->children[i];
+		if(current) {
+			prefix += next;
+			//prefix.push_back();
+			traverseTrie(prefix,current);
+			//prefix.pop_back();
+		}
+	}
+	return prefix;
+}
+
 /* Return up to num_completions of the most frequent completions
  * of the prefix, such that the completions are words in the dictionary.
  * These completions should be listed from most frequent to least.
@@ -79,7 +98,6 @@ std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, 
   std::vector<std::string> words;
 
   TrieNode* curr = root;
-  string theWord = "";
   
   if (num_completions == 0 || prefix.empty() || !root) {
     return words;
@@ -90,21 +108,25 @@ std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, 
     if (curr->children[letter] == NULL) break;
     if (curr->children[letter]->text == prefix[i]) {
         curr = curr->children[letter];
-        cout << "first for loop" << endl;
-        cout << curr->text << endl;
+        //cout << i+1 << "th for loop" << endl;
+        //cout << curr->text << endl;
     }
     else return words;
   }
 
-  for (unsigned int i=0; i<27; i++) {
+  cout << "the prefix searched for is: " << prefix << endl;
+  cout << "curr is now pointing to: " << curr->text << endl;
+
+  /*for (unsigned int i=0; i<27; i++) {
     if (curr->children[i] != NULL) {
         theWord += curr->children[i]->text;
-    }
-    //if curr->isWord
-    //curr = curr->children[i];
-    cout << "theWord: " << theWord << endl;
-    //curr = curr->children[i]; this causing segfault
+    	//curr = curr->children[i];
+	}
   }
+    cout << "theWord: " << theWord << endl;*/
+
+  string theWord = traverseTrie(prefix,curr);
+  cout << "word found in trie with prefix: " << theWord << endl;
 
   priority_queue<TrieNode*> q;
 
