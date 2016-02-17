@@ -11,7 +11,8 @@ int main(int argc, char *argv[]) {
 
     //std::ifstream in;
     //in.open(dict_filename, std::ios::binary);
-/*int testsPassed = 0;
+
+    /*int testsPassed = 0;
     
     // CHECKPOINT TEST 1: Hashtable
     cout << "////////// HASHTABLE //////////" << endl;
@@ -174,8 +175,6 @@ int main(int argc, char *argv[]) {
     string h = "fuck";
     string i = "mad";
     string x = "dead";
-    string a = "bc";
-    string b = "bc";
     string dump = "basket";
     string ling = "basketball";
     string guggle = "guggle";
@@ -191,27 +190,32 @@ int main(int argc, char *argv[]) {
    	cout << "----- Testing DictionaryTrie -----" << endl;
    	DictionaryTrie* dictTrie= new DictionaryTrie();
 
-    cout << "should be 1: " << dictTrie->insert(s,20) << endl; //1
-    cout << "should be 1: " << dictTrie->find(s) << endl; //1
-    cout << "should be 0: " << dictTrie->insert(h,0) << endl; //0
-    cout << "should be 1: " << dictTrie->insert(i,0) << endl; //1
-    cout << "should be 1: " << dictTrie->find(h) << endl; //1
-    cout << "should be 1: " << dictTrie->find(i) << endl; //1
-    cout << "should be 0: " << dictTrie->find(x) << endl; //0
+    //cout << "should be 1: " << dictTrie->insert(s,20) << endl; //1
+    //cout << "should be 1: " << dictTrie->find(s) << endl; //1
+    //cout << "should be 0: " << dictTrie->insert(h,0) << endl; //0
+    //cout << "should be 1: " << dictTrie->insert(i,0) << endl; //1
+    //cout << "should be 1: " << dictTrie->find(h) << endl; //1
+    //cout << "should be 1: " << dictTrie->find(i) << endl; //1
+    //cout << "should be 0: " << dictTrie->find(x) << endl; //0
     cout << "should be 1: " << dictTrie->insert(tok,1) << endl;
     cout << "should be 1: " << dictTrie->insert(one,1) << endl; 
     cout << "should be 1: " << dictTrie->insert(two,1) << endl;
     cout << "should be 1: " << dictTrie->insert(three,1) << endl; // 1
-    cout << "should be 0: " << dictTrie->insert(three,3) << endl; // 0
+    //cout << "should be 0: " << dictTrie->insert(three,3) << endl; // 0
     cout << "should be 1: " << dictTrie->insert(four,1) << endl; // 1
-    cout << "should be 0: " << dictTrie->insert(four,1) << endl; 
-    cout << "should be 1: " << dictTrie->find(four) << endl;
-    cout << "should be 0: " << dictTrie->insert(two,1) << endl;
-    cout << "should be 0: " << dictTrie->insert(two,2) << endl;
-    cout << "should be 0: " << dictTrie->find(m) << endl;
-    cout << "should be 0: " << dictTrie->find(r) << endl; 
+    //cout << "should be 0: " << dictTrie->insert(four,1) << endl; 
+    //cout << "should be 1: " << dictTrie->find(four) << endl;
+    //cout << "should be 0: " << dictTrie->insert(two,1) << endl;
+    //cout << "should be 0: " << dictTrie->insert(two,2) << endl;
+    //cout << "should be 0: " << dictTrie->find(m) << endl;
+    //cout << "should be 0: " << dictTrie->find(r) << endl; 
     cout << endl;
+    dictTrie->insert(m,2);
+    dictTrie->insert(r,2);
+    dictTrie->insert(dump,2);
+    dictTrie->insert(ling,1);
+    //tree has tok, one, two, three, four, m, and r, dump, ling
     cout << "----- Testing PredictCompletions -----" << endl;
-    dictTrie->predictCompletions("app",10);
+    dictTrie->predictCompletions("ne",10);
     
 }

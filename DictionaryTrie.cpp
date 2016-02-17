@@ -64,9 +64,8 @@ bool DictionaryTrie::find(std::string word) const
     return false;
 }
 
-string DictionaryTrie::traverseTrie(std::string prefix, TrieNode*& node) {
+void DictionaryTrie::traverseTrie(std::string prefix, TrieNode*& node) {
 	string word;
-	int x =0;
 	if (node->isWord) {
 		//cout << prefix << endl;
 	}
@@ -75,12 +74,13 @@ string DictionaryTrie::traverseTrie(std::string prefix, TrieNode*& node) {
 		TrieNode* current = node->children[i];
 		if(current) {
 			prefix += next;
-			//prefix.push_back();
+      //vec.push_back(prefix);
+      cout << prefix << endl;
+			//prefix.push_back(next);
 			traverseTrie(prefix,current);
 			//prefix.pop_back();
 		}
 	}
-	return prefix;
 }
 
 /* Return up to num_completions of the most frequent completions
@@ -96,16 +96,20 @@ string DictionaryTrie::traverseTrie(std::string prefix, TrieNode*& node) {
 std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, unsigned int num_completions)
 {
   std::vector<std::string> words;
-
   TrieNode* curr = root;
   
   if (num_completions == 0 || prefix.empty() || !root) {
     return words;
   }
 
-  for (unsigned int i=0; i<prefix.length(); i++) {
+  for (unsigned int i=0; i < prefix.length(); i++) {
     int letter = (int)prefix[i]-(int)'a';
-    if (curr->children[letter] == NULL) break;
+
+    if (curr->children[letter] == NULL) {
+      cout << "Prefix '" << prefix << "' is not found" << endl;
+      return words;
+    }
+
     if (curr->children[letter]->text == prefix[i]) {
         curr = curr->children[letter];
         //cout << i+1 << "th for loop" << endl;
@@ -117,16 +121,13 @@ std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, 
   cout << "the prefix searched for is: " << prefix << endl;
   cout << "curr is now pointing to: " << curr->text << endl;
 
-  /*for (unsigned int i=0; i<27; i++) {
+  for (unsigned int i=0; i<27; i++) {
     if (curr->children[i] != NULL) {
-        theWord += curr->children[i]->text;
-    	//curr = curr->children[i];
-	}
+        //theWord += curr->children[i]->text;
+    	  traverseTrie(prefix,curr);
+        curr = curr->children[i];
+	  }
   }
-    cout << "theWord: " << theWord << endl;*/
-
-  string theWord = traverseTrie(prefix,curr);
-  cout << "word found in trie with prefix: " << theWord << endl;
 
   priority_queue<TrieNode*> q;
 
