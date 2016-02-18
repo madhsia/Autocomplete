@@ -1,3 +1,6 @@
+/* Name: Madeline Hsia
+   Login: cs100wew */ 
+
 #include "util.hpp"
 #include "DictionaryTrie.hpp"
 #include <queue>
@@ -18,12 +21,10 @@ bool DictionaryTrie::insert(std::string word, unsigned int freq)
 {
     TrieNode* curr = root;
 
-    if (find(word)) {
+    if (find(word) || word.empty()) {
         return false;
     }
-    if (word.empty()) {
-        return false;
-    }
+
     for (unsigned int i=0; i < word.length(); i++) {
         int letter = (int)word[i]-(int)'a';
         if (word[i] == ' ') {
@@ -64,25 +65,6 @@ bool DictionaryTrie::find(std::string word) const
     return false;
 }
 
-void DictionaryTrie::traverseTrie(std::string prefix, TrieNode*& node) {
-	string word;
-	if (node->isWord) {
-		//cout << prefix << endl;
-	}
-	for (char i=0; i<27;++i) {
-		char next = i + 'a';
-		TrieNode* current = node->children[i];
-		if(current) {
-			prefix += next;
-      //vec.push_back(prefix);
-      cout << prefix << endl;
-			//prefix.push_back(next);
-			traverseTrie(prefix,current);
-			//prefix.pop_back();
-		}
-	}
-}
-
 /* Return up to num_completions of the most frequent completions
  * of the prefix, such that the completions are words in the dictionary.
  * These completions should be listed from most frequent to least.
@@ -97,23 +79,23 @@ std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, 
 {
   std::vector<std::string> words;
   TrieNode* curr = root;
-  
+  int letter;
+
   if (num_completions == 0 || prefix.empty() || !root) {
     return words;
   }
 
+  //find the prefix
   for (unsigned int i=0; i < prefix.length(); i++) {
-    int letter = (int)prefix[i]-(int)'a';
-
+    if (prefix[i] == ' ') letter = 26;
+    else letter = (int)prefix[i]-(int)'a';
+    
     if (curr->children[letter] == NULL) {
       cout << "Prefix '" << prefix << "' is not found" << endl;
       return words;
     }
-
     if (curr->children[letter]->text == prefix[i]) {
         curr = curr->children[letter];
-        //cout << i+1 << "th for loop" << endl;
-        //cout << curr->text << endl;
     }
     else return words;
   }
@@ -121,33 +103,41 @@ std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, 
   cout << "the prefix searched for is: " << prefix << endl;
   cout << "curr is now pointing to: " << curr->text << endl;
 
-  for (unsigned int i=0; i<27; i++) {
+  //traverse tree
+  for (unsigned int i=0; i<26; i++) {
     if (curr->children[i] != NULL) {
-        //theWord += curr->children[i]->text;
-    	  traverseTrie(prefix,curr);
+    	  traverseTrie(prefix,curr,words);
         curr = curr->children[i];
 	  }
   }
 
+  cout << "Vector size: " << words.size() << endl;
+  cout << words[2] << endl;
+
   priority_queue<TrieNode*> q;
 
   for (q.push(root); !q.empty(); q.pop()){
-    const TrieNode* const temp = q.top();
-    cout << temp->text << " ";
-    //if (temp->children[]) {
-    //    q.push ??
-    //}
-  }
+    //const TrieNode* const temp = q.top();
 
-  /* 
-    1. get all words that have that prefix
-        2) The next step is to search through the subtree rooted at the end of the 
-        prefix to find the num_completion most likely completions of the prefix.  
-    2. compare the frequencies
-    3. put num_completions amount of it in words
-  */
-  
+      
+  }
   return words;
+}
+
+void DictionaryTrie::traverseTrie(std::string prefix, TrieNode*& node, vector<std::string>& words) {
+  string word = prefix;
+  if (node->isWord) {
+    words.push_back(word);
+  }
+  for (char i=0; i<27;++i) {
+    char next = i + 'a';
+    TrieNode* current = node->children[i];
+    if(current) {
+      word += next;
+      cout << word << endl;
+      traverseTrie(word,current,words);
+    }
+  }
 }
 
 /* Destructor */
