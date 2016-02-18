@@ -19,7 +19,6 @@ void testStudent(std::string dict_filename){
 }
 
 int main(int argc, char *argv[]) {
-    cout << "----- fukthisshit -----" << endl;
 
     string s = "fuck";
     string h = "fuck";
@@ -38,7 +37,7 @@ int main(int argc, char *argv[]) {
     string r = "alaska"; //0 find
 
    	cout << "----- Testing DictionaryTrie -----" << endl;
-   	DictionaryTrie* dictTrie= new DictionaryTrie();
+   	DictionaryTrie* dictTrie = new DictionaryTrie();
 
     //cout << "should be 1: " << dictTrie->insert(s,20) << endl; //1
     //cout << "should be 1: " << dictTrie->find(s) << endl; //1

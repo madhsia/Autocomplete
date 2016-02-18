@@ -80,6 +80,7 @@ std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, 
   std::vector<std::string> words;
   TrieNode* curr = root;
   int letter;
+  int freq;
 
   if (num_completions == 0 || prefix.empty() || !root) {
     return words;
@@ -100,8 +101,8 @@ std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, 
     else return words;
   }
 
-  cout << "the prefix searched for is: " << prefix << endl;
-  cout << "curr is now pointing to: " << curr->text << endl;
+  cout << "The prefix searched for is: " << prefix << endl;
+  cout << "Curr is now pointing to: " << curr->text << endl;
 
   //traverse tree
   for (unsigned int i=0; i<26; i++) {
@@ -112,30 +113,33 @@ std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, 
   }
 
   cout << "Vector size: " << words.size() << endl;
-  cout << words[2] << endl;
+  cout << words[5] << endl;
 
+  pair<string,int> thePair (words[2], freq);
   priority_queue<TrieNode*> q;
 
   for (q.push(root); !q.empty(); q.pop()){
     //const TrieNode* const temp = q.top();
-
-      
   }
   return words;
 }
 
 void DictionaryTrie::traverseTrie(std::string prefix, TrieNode*& node, vector<std::string>& words) {
   string word = prefix;
+  char next; 
   if (node->isWord) {
     words.push_back(word);
   }
-  for (char i=0; i<27;++i) {
-    char next = i + 'a';
+  for (char i=0; i<27;i++) {   
+    if (i == 26) next = ' ';
+    else next = i + 'a';
+
     TrieNode* current = node->children[i];
     if(current) {
-      word += next;
+      word.push_back(next);
       cout << word << endl;
       traverseTrie(word,current,words);
+      word.pop_back();
     }
   }
 }
