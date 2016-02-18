@@ -40,6 +40,7 @@ bool DictionaryTrie::insert(std::string word, unsigned int freq)
         curr = curr->children[letter];        
     }
     curr->isWord = true;
+    curr->freq = freq;
 	return true;
 }
 
@@ -80,7 +81,7 @@ std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, 
   std::vector<std::string> words;
   TrieNode* curr = root;
   int letter;
-  int freq;
+  //int freq;
 
   if (num_completions == 0 || prefix.empty() || !root) {
     return words;
@@ -104,32 +105,39 @@ std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, 
   cout << "The prefix searched for is: " << prefix << endl;
   cout << "Curr is now pointing to: " << curr->text << endl;
 
+  priority_queue<pair<string,int>> q;
+
   //traverse tree
   for (unsigned int i=0; i<26; i++) {
     if (curr->children[i] != NULL) {
-    	  traverseTrie(prefix,curr,words);
+    	  traverseTrie(prefix,curr,q);
         curr = curr->children[i];
 	  }
   }
 
-  cout << "Vector size: " << words.size() << endl;
-  cout << words[5] << endl;
+  cout << q.size() << endl;
 
-  pair<string,int> thePair (words[2], freq);
-  priority_queue<TrieNode*> q;
-
-  for (q.push(root); !q.empty(); q.pop()){
+  //depth first search
+  /*for (q.push(root); !q.empty(); q.pop()){
     //const TrieNode* const temp = q.top();
-  }
+  }*/
+
   return words;
 }
 
-void DictionaryTrie::traverseTrie(std::string prefix, TrieNode*& node, vector<std::string>& words) {
+void DictionaryTrie::traverseTrie(std::string prefix, TrieNode*& node, priority_queue<pair<string,int>>& q) {
   string word = prefix;
+  pair<string,int> thePair;
+
   char next; 
   if (node->isWord) {
-    words.push_back(word);
+    thePair.first = word;
+    thePair.second = node->freq;
+    cout << thePair.second << endl;
+    cout << thePair.first << endl;
+    q.push(thePair);
   }
+
   for (char i=0; i<27;i++) {   
     if (i == 26) next = ' ';
     else next = i + 'a';
@@ -138,7 +146,7 @@ void DictionaryTrie::traverseTrie(std::string prefix, TrieNode*& node, vector<st
     if(current) {
       word.push_back(next);
       cout << word << endl;
-      traverseTrie(word,current,words);
+      traverseTrie(word,current,q);
       word.pop_back();
     }
   }

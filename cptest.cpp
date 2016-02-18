@@ -67,6 +67,4 @@ int main(int argc, char *argv[]) {
     cout << "----- Testing PredictCompletions -----" << endl;
     //testStudent(argv[1]);
     dictTrie->predictCompletions("a",10);
-
-    
 }
