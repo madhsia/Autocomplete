@@ -33,10 +33,9 @@ bool DictionaryTrie::insert(std::string word, unsigned int freq)
         if (curr->children[letter] == NULL) {
             curr->children[letter] = new TrieNode(false,word[i],0);
         }
-
-        if (i == word.length()-1) {
+        /*if (i == word.length()-1) {
             curr->freq = freq;
-        }
+        }*/
         curr = curr->children[letter];        
     }
     curr->isWord = true;
@@ -93,7 +92,7 @@ std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, 
     else letter = (int)prefix[i]-(int)'a';
     
     if (curr->children[letter] == NULL) {
-      cout << "Prefix '" << prefix << "' is not found" << endl;
+      //cout << "Prefix '" << prefix << "' is not found" << endl;
       return words;
     }
     if (curr->children[letter]->text == prefix[i]) {
@@ -102,10 +101,10 @@ std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, 
     else return words;
   }
 
-  cout << "The prefix searched for is: " << prefix << endl;
-  cout << "Curr is now pointing to: " << curr->text << endl;
+  //cout << "The prefix searched for is: " << prefix << endl;
+  //cout << "Curr is now pointing to: " << curr->text << endl;
 
-  priority_queue<pair<string,int>> q;
+  priority_queue<pair<unsigned int, string>> q;
 
   //traverse tree
   for (unsigned int i=0; i<26; i++) {
@@ -115,26 +114,35 @@ std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, 
 	  }
   }
 
-  cout << q.size() << endl;
-
-  //depth first search
-  /*for (q.push(root); !q.empty(); q.pop()){
-    //const TrieNode* const temp = q.top();
+  //cout << q.size() << endl;
+  /*for (; !q.empty(); q.pop()) {
+    cout << q.top().first << endl;
+    cout << q.top().second << endl;
   }*/
+
+  for (unsigned int i=0; i < num_completions; i++) {
+    if (q.empty()) {
+      break;
+    }
+    pair<unsigned int,string> add = q.top();
+    //cout << q.top().second << "-" << q.top().first << endl;
+    words.push_back(add.second);
+    q.pop();
+  }
 
   return words;
 }
 
-void DictionaryTrie::traverseTrie(std::string prefix, TrieNode*& node, priority_queue<pair<string,int>>& q) {
+void DictionaryTrie::traverseTrie(std::string prefix, TrieNode*& node, priority_queue<pair<unsigned int,string>>& q) {
   string word = prefix;
-  pair<string,int> thePair;
+  pair<unsigned int,string> thePair;
 
   char next; 
   if (node->isWord) {
-    thePair.first = word;
-    thePair.second = node->freq;
-    cout << thePair.second << endl;
-    cout << thePair.first << endl;
+    thePair.first = node->freq;
+    thePair.second = word;
+    //cout << thePair.second << endl;
+    //cout << thePair.first << endl;
     q.push(thePair);
   }
 
@@ -145,7 +153,7 @@ void DictionaryTrie::traverseTrie(std::string prefix, TrieNode*& node, priority_
     TrieNode* current = node->children[i];
     if(current) {
       word.push_back(next);
-      cout << word << endl;
+      //cout << word << endl;
       traverseTrie(word,current,q);
       word.pop_back();
     }
