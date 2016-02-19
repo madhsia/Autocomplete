@@ -8,9 +8,11 @@ DictionaryHashtable::DictionaryHashtable(){}
 /* Insert a word into the dictionary. */
 bool DictionaryHashtable::insert(std::string word)
 {
-	if (word.empty()) return false;
-	auto exists = s.insert(word);
-	if (exists.second == 1) {
+	//null check
+	if (word.empty() || this->find(word)) return false;
+	//auto exists = s.insert(word);
+	//if doesnt exists, insert
+	else {
 		s.insert(word);
 		return true;
 	}
@@ -21,9 +23,8 @@ bool DictionaryHashtable::insert(std::string word)
 /* Return true if word is in the dictionary, and false otherwise */
 bool DictionaryHashtable::find(std::string word) const
 {
-	if (s.find(word) == s.end()) {
-		return false;
-	}
+	//if findWord is not end, then it's not found
+	if (s.find(word) == s.end()) return false;
 	return true;
 }
 

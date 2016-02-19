@@ -8,9 +8,10 @@ DictionaryBST::DictionaryBST(){}
 /* Insert a word into the dictionary. */
 bool DictionaryBST::insert(std::string word)
 {
-	if (word.empty()) return false;
-	auto exists = s.insert(word);
-	if (exists.second == 1) {
+	//null check
+	if (word.empty() || this->find(word)) return false;
+	//if doesnt exist, insert
+	else {
 		s.insert(word);
 		return true;
 	}
@@ -20,13 +21,11 @@ bool DictionaryBST::insert(std::string word)
 /* Return true if word is in the dictionary, and false otherwise */
 bool DictionaryBST::find(std::string word) const
 {
-	if (s.find(word) == s.end()) {
-		return false;
-	}
+	//if find is not at end, its not found
+	if (s.find(word) == s.end()) return false;
 	return true;
 }
 
 /* Destructor */
 DictionaryBST::~DictionaryBST(){
-
 }
