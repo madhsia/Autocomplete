@@ -3,12 +3,17 @@
  *  Authors: Jor-el Briones, Christine Alvarado
  */
 
+ /* Name: Madeline Hsia
+   Login: cs100wew */ 
+
 #ifndef DICTIONARY_TRIE_HPP
 #define DICTIONARY_TRIE_HPP
 
 #include <vector>
 #include <string>
 #include <unordered_map>
+#include <queue>
+#include <utility>
 
 using namespace std;
 
@@ -19,36 +24,15 @@ using namespace std;
  *
  */
 
- //ternary
-/*class Node {
-  public:
-    char data;
-    bool is_Word;
-    unsigned int frequency;
-    Node* children[27];
-    Node* root;
-    Node* left;
-    Node* equal;
-    Node* right;
-
-    Node(char c) {
-      Node* temp = new Node(0);
-      temp->data = c;
-      temp->is_Word = false;
-      temp->left = temp->equal = temp->right;
-    }
-  };*/
-
   //multiway
 class TrieNode {
   public:
-    bool isWord;
-    //TrieNode* children[27];
-    //unordered_map<char, TrieNode*> children;
     vector<TrieNode*>children = vector<TrieNode*>(27, (TrieNode*)0);
     char text;
     unsigned int freq;
-    
+    bool isWord;
+
+    /* trieNode constructore w isWord, char text, and freq */
     TrieNode(bool isWord, char text, unsigned int freq){
       this->isWord = isWord;
       this->text = text;
@@ -62,6 +46,12 @@ public:
 
   /* Create a new Dictionary that uses a Trie back end */
   DictionaryTrie();
+
+  /*deleteTrie recursive helper method for destructor*/
+  void deleteTrie(TrieNode* ptr);
+
+  /*traverseTrie recursive helper method for predictCompletions*/
+  void traverseTrie(std::string prefix, TrieNode*& node, priority_queue<pair<unsigned int, string>>& q);
 
   /* Insert a word with its frequency into the dictionary.
    * Return true if the word was inserted, and false if it
