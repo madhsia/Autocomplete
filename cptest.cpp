@@ -15,7 +15,7 @@ void testStudent(std::string dict_filename){
     DictionaryTrie* dictTrie= new DictionaryTrie();
 
     Utils::load_dict(*dictTrie, in);
-    dictTrie->predictCompletions("a",10);
+    dictTrie->predictCompletions("",10);
 }
 
 int main(int argc, char *argv[]) {

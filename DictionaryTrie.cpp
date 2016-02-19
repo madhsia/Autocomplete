@@ -21,9 +21,7 @@ bool DictionaryTrie::insert(std::string word, unsigned int freq)
 {
     TrieNode* curr = root;
 
-    if (find(word) || word.empty()) {
-        return false;
-    }
+    if (find(word) || word.empty()) return false;
 
     for (unsigned int i=0; i < word.length(); i++) {
         int letter = (int)word[i]-(int)'a';
@@ -33,13 +31,12 @@ bool DictionaryTrie::insert(std::string word, unsigned int freq)
         if (curr->children[letter] == NULL) {
             curr->children[letter] = new TrieNode(false,word[i],0);
         }
-        /*if (i == word.length()-1) {
+        curr = curr->children[letter];
+        if (i == word.length()-1) {
             curr->freq = freq;
-        }*/
-        curr = curr->children[letter];        
+            curr->isWord = true;
+        }        
     }
-    curr->isWord = true;
-    curr->freq = freq;
 	return true;
 }
 
@@ -77,73 +74,49 @@ bool DictionaryTrie::find(std::string word) const
  */
 std::vector<std::string> DictionaryTrie::predictCompletions(std::string prefix, unsigned int num_completions)
 {
-  std::vector<std::string> words;
+  priority_queue<pair<unsigned int, string>> q;
+  vector<std::string> words;
   TrieNode* curr = root;
   int letter;
-  //int freq;
 
-  if (num_completions == 0 || prefix.empty() || !root) {
-    return words;
-  }
+  if (num_completions == 0 || prefix.empty() || !root) return words;
 
   //find the prefix
   for (unsigned int i=0; i < prefix.length(); i++) {
     if (prefix[i] == ' ') letter = 26;
     else letter = (int)prefix[i]-(int)'a';
     
-    if (curr->children[letter] == NULL) {
-      //cout << "Prefix '" << prefix << "' is not found" << endl;
-      return words;
-    }
+    if (curr->children[letter] == NULL) return words; 
+
     if (curr->children[letter]->text == prefix[i]) {
         curr = curr->children[letter];
     }
     else return words;
   }
 
-  //cout << "The prefix searched for is: " << prefix << endl;
-  //cout << "Curr is now pointing to: " << curr->text << endl;
-
-  priority_queue<pair<unsigned int, string>> q;
-
   //traverse tree
-  for (unsigned int i=0; i<26; i++) {
-    if (curr->children[i] != NULL) {
-    	  traverseTrie(prefix,curr,q);
-        curr = curr->children[i];
-	  }
-  }
-
-  //cout << q.size() << endl;
-  /*for (; !q.empty(); q.pop()) {
-    cout << q.top().first << endl;
-    cout << q.top().second << endl;
-  }*/
-
+  traverseTrie(prefix,curr,q);
+  
   for (unsigned int i=0; i < num_completions; i++) {
-    if (q.empty()) {
-      break;
-    }
+    if (q.empty()) break;
     pair<unsigned int,string> add = q.top();
-    //cout << q.top().second << "-" << q.top().first << endl;
     words.push_back(add.second);
     q.pop();
   }
-
   return words;
 }
 
-void DictionaryTrie::traverseTrie(std::string prefix, TrieNode*& node, priority_queue<pair<unsigned int,string>>& q) {
+//!!!!! PROBLEM: search for mad returns two of the same freq "madms" and "madams"
+void DictionaryTrie::traverseTrie(std::string prefix, TrieNode*& node, 
+                                  priority_queue<pair<unsigned int,string>>& q) {
   string word = prefix;
-  pair<unsigned int,string> thePair;
+  char next;
 
-  char next; 
+  if (node == NULL) return;
+
   if (node->isWord) {
-    thePair.first = node->freq;
-    thePair.second = word;
-    //cout << thePair.second << endl;
-    //cout << thePair.first << endl;
-    q.push(thePair);
+    pair<unsigned int,string> p = make_pair(node->freq,word);
+    q.push(p);
   }
 
   for (char i=0; i<27;i++) {   
@@ -153,7 +126,6 @@ void DictionaryTrie::traverseTrie(std::string prefix, TrieNode*& node, priority_
     TrieNode* current = node->children[i];
     if(current) {
       word.push_back(next);
-      //cout << word << endl;
       traverseTrie(word,current,q);
       word.pop_back();
     }
