@@ -29,53 +29,53 @@ int main(int argc, char *argv[]) {
 
     cout << "DictionaryTrie" << endl;
     for (int i=0; i<iterations; i++) {
-        int size = min_size + i*step_size;
+        int size = min_size + (i*step_size);
         DictionaryTrie *dictTrie = new DictionaryTrie();
 
-        bool result;
+        //bool result;
         long long duration =0;
         Utils::load_dict(*dictTrie,in,size);
         in.clear();
         in.seekg(0,std::ios::beg);
 
         T.begin_timer();
-        result = dictTrie->find("rebeccawillyoumarryme");
+        dictTrie->find("rebeccawillyoumarryme");
         duration += T.end_timer();
 
         T.begin_timer();
-        result = dictTrie->find("nosirjeffers");
+        dictTrie->find("nosirjeffers");
         duration += T.end_timer();
 
         T.begin_timer();
-        result = dictTrie->find("wabalabadubdub");
+        dictTrie->find("wabalabadubdub");
         duration += T.end_timer();
 
         T.begin_timer();
-        result = dictTrie->find("iknowwhenthatyichardring");
+        dictTrie->find("iknowwhenthatyichardring");
         duration += T.end_timer();
 
         T.begin_timer();
-        result = dictTrie->find("sharkysharksayssharkyshark");
+        dictTrie->find("sharkysharksayssharkyshark");
         duration += T.end_timer();
 
         T.begin_timer();
-        result = dictTrie->find("momsaidicouldhave");
+        dictTrie->find("momsaidicouldhave");
         duration += T.end_timer();
 
         T.begin_timer();
-        result = dictTrie->find("justonepeanutbuttersquare");
+        dictTrie->find("justonepeanutbuttersquare");
         duration += T.end_timer();
 
         T.begin_timer();
-        result = dictTrie->find("butnotuntilaft");
+        dictTrie->find("butnotuntilaft");
         duration += T.end_timer();
 
         T.begin_timer();
-        result = dictTrie->find("ertheycool");
+        dictTrie->find("ertheycool");
         duration += T.end_timer();
 
         T.begin_timer();
-        result = dictTrie->find("downnnnnnn");
+        dictTrie->find("downnnnnnn");
         duration += T.end_timer();
 
         duration = duration/iterations;
@@ -86,53 +86,53 @@ int main(int argc, char *argv[]) {
     cout << endl;
     cout << "DictionaryBST" << endl;
     for (int i=0; i<iterations; i++) {
-        int size = min_size + i*step_size;
+        int size = min_size + (i*step_size);
         DictionaryBST *dictBST = new DictionaryBST();
-        bool result;
+        //bool result;
         long long duration =0;
         Utils::load_dict(*dictBST,in,size);
         in.clear();
         in.seekg(0,std::ios::beg);
 
         T.begin_timer();
-        result = dictBST->find("rebeccawillyoumarryme");
+        dictBST->find("rebeccawillyoumarryme");
         duration += T.end_timer();
 
         T.begin_timer();
-        result = dictBST->find("nosirjeffers");
+        dictBST->find("nosirjeffers");
         duration += T.end_timer();
 
         T.begin_timer();
-        result = dictBST->find("wabalabadubdub");
+        dictBST->find("wabalabadubdub");
         duration += T.end_timer();
 
         T.begin_timer();
-        result = dictBST->find("iknowwhenthatyichardring");
+        dictBST->find("iknowwhenthatyichardring");
         duration += T.end_timer();
         duration = duration/iterations;
 
         T.begin_timer();
-        result = dictBST->find("sharkysharksayssharkyshark");
+        dictBST->find("sharkysharksayssharkyshark");
         duration += T.end_timer();
 
         T.begin_timer();
-        result = dictBST->find("momsaidicouldhave");
+        dictBST->find("momsaidicouldhave");
         duration += T.end_timer();
 
         T.begin_timer();
-        result = dictBST->find("justonepeanutbuttersquare");
+        dictBST->find("justonepeanutbuttersquare");
         duration += T.end_timer();
 
         T.begin_timer();
-        result = dictBST->find("butnotuntilaft");
+        dictBST->find("butnotuntilaft");
         duration += T.end_timer();
 
         T.begin_timer();
-        result = dictBST->find("ertheycool");
+        dictBST->find("ertheycool");
         duration += T.end_timer();
 
         T.begin_timer();
-        result = dictBST->find("downnnnnnn");
+        dictBST->find("downnnnnnn");
         duration += T.end_timer();
 
         cout << size << "\t" << duration << endl;
@@ -142,53 +142,53 @@ int main(int argc, char *argv[]) {
     cout << endl;
     cout << "DictionaryHashtable" << endl;
     for (int i=0; i<iterations; i++) {
-        int size = min_size + i*step_size;
+        int size = min_size + (i*step_size);
         DictionaryHashtable *dictHash = new DictionaryHashtable();
-        bool result;
+        //bool result;
         long long duration =0;
         Utils::load_dict(*dictHash,in,size);
         in.clear();
         in.seekg(0,std::ios::beg);
 
         T.begin_timer();
-        result = dictHash->find("rebeccawillyoumarryme");
+        dictHash->find("rebeccawillyoumarryme");
         duration += T.end_timer();
 
         T.begin_timer();
-        result = dictHash->find("nosirjeffers");
+        dictHash->find("nosirjeffers");
         duration += T.end_timer();
 
         T.begin_timer();
-        result = dictHash->find("wabalabadubdub");
+        dictHash->find("wabalabadubdub");
         duration += T.end_timer();
 
         T.begin_timer();
-        result = dictHash->find("iknowwhenthatyichardring");
+        dictHash->find("iknowwhenthatyichardring");
         duration += T.end_timer();
         duration = duration/iterations;
 
         T.begin_timer();
-        result = dictHash->find("sharkysharksayssharkyshark");
+        dictHash->find("sharkysharksayssharkyshark");
         duration += T.end_timer();
 
         T.begin_timer();
-        result = dictHash->find("momsaidicouldhave");
+        dictHash->find("momsaidicouldhave");
         duration += T.end_timer();
 
         T.begin_timer();
-        result = dictHash->find("justonepeanutbuttersquare");
+        dictHash->find("justonepeanutbuttersquare");
         duration += T.end_timer();
 
         T.begin_timer();
-        result = dictHash->find("butnotuntilaft");
+        dictHash->find("butnotuntilaft");
         duration += T.end_timer();
 
         T.begin_timer();
-        result = dictHash->find("ertheycool");
+        dictHash->find("ertheycool");
         duration += T.end_timer();
 
         T.begin_timer();
-        result = dictHash->find("downnnnnnn");
+        dictHash->find("downnnnnnn");
         duration += T.end_timer();
 
         cout << size << "\t" << duration << endl;
