@@ -170,5 +170,5 @@ int main(int argc, char *argv[]) {
     testStudent(argv[1]);
 
     // TODO - Your benchmarking for Part 3.
-
+    return 0;
 }
