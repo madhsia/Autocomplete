@@ -195,5 +195,5 @@ int main(int argc, char *argv[]) {
         delete dictHash;
     }
 
-
+return 0;
 }
